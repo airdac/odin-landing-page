@@ -7,37 +7,109 @@
     </head>
 
     <body>
+        <audio autoplay hidden muted>
+            <source src="la-internacional.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
         <div class="header">
-            <div class="logo">Header Logo</div>
+            <div class="logo">La Internacional</div>
             <ul>
-                <li><a href="#">header link one</a></li>
-                <li><a href="#">header link two</a></li>
-                <li><a href="#">header link three</a></li>
+                <li><a href="#">URSS</a></li>
+                <li><a href="#">Cuba</a></li>
+                <li><a href="#">Veneçuela</a></li>
             </ul>
         </div>
 
         <div class="body">
             <div class="hero-text">
                 <div class="text">
-                    <div class="main">This website is awesome</div>
-                    <div class="secondary">This website has some subtext that goes here under the main title. It's a smaller font and the color is lower contrast</div>
-                    <button>Sign up</button>
+                    <div class="main">Visca la Internacional!</div>
+                    <div class="secondary">
+                        <p>Amunt els damnats de la terra</p>
+                        <p>Amunt els qui pateixen fam</p>
+                        <p>La força pel dret és vençuda</p>
+                        <p>S'acosta el bell temps de la pau</p>
+                    </div>
+                    <button>Uneix-t'hi</button>
                 </div>
-                <img src="./images/xenoblade-x.jpg">
+                <img src="./images/hero.png">
             </div>
-            <div class="boxes">
-                Some random information.
+            <div class="boxes-section">
+                <div class="title">Els nostres símbols.</div>
+                <div class="boxes">
+                    <div class="box">
+                        <img src="./images/marx.png">
+                        <p>Karl Marx</p>
+                        <p>(1818-1883)</p>
+                        <em>Fins ara, els filòsofs només han interpretat el món de diverses maneres. La qüestió, però, és canviar-lo.</em>
+                    </div>
+                    <div class="box">
+                        <img src="./images/engels.png">
+                        <p>Friedrich Engels</p>
+                        <p>(1820-1895)</p>
+                        <em>Si no hi hagués dones franceses, la vida no valdria la pena de ser viscuda.</em>
+                    </div>
+                    <div class="box">
+                        <img src="./images/lenin.png">
+                        <p>Lenin</p>
+                        <p>(1870-1924)</p>
+                        <em>Hi ha dècades en què no passa res; i hi ha setmanes en què passen dècades.</em>
+                    </div>
+                    <div class="box">
+                        <img src="./images/alexelcapo.png">
+                        <p>Alejandro El Capoeira</p>
+                        <p>(1987-)</p>
+                        <em>Moriré por alexelcapso.</em>
+                    </div>
+                </div>
             </div>
-            <div class="quote">
-                This is an inspiring quote, or a testimonial from a customer. Maybe it's just filling up space, or maybe people will actually read it. Who knows? All I know is that it looks nice.
+            <div class="quote-section">
+                <div class="quote">
+                    <div class="text">
+                        <p>Els comunistes menyspreen d'agamar les seves opinions i intencions. Declaren ben obertament que els seus objectius només poden ser aconseguits amb l'enderrocament violent de tot ordre social preexistent. Que tremolin les classes dominants davant una revolució comunista. Els proletaris no hi tenen res a perdre fora de les seves cadenes. I tenen un món a guanyar.</p>
+                    </div>
+                    <div class="final">
+                        <p>PROLETARIS DE TOTS ELS PAÏSOS,</p>
+                        <p>UNIU-VOS</p>
+                    </div>
+                </div>
             </div>
-            <div class="sign-up">
-                Call to action! It's time!
+            <div class="sign-up-section">
+                <div class="sign-up">
+                    <div class="text">
+                        <div class="main">Que visqui la lluita comunista!</div>
+                        <div class="secondary">Uneix-t'hi per alliberar els pobles del món!</div>
+                        </div>
+                    <button>Uneix-t'hi</button>
+                </div>
             </div>
         </div>
 
         <div class="footer">
-            Copyright © The Odin Project 2021
+            airdac, 2025
         </div>
+
+        <script>
+            // Get the audio element
+            const audio = document.querySelector('audio');
+            
+            // Function to unmute and play audio
+            function unmuteAudio() {
+                audio.muted = false;
+                audio.play().catch(e => {
+                    console.log('Audio play failed:', e);
+                });
+                
+                // Remove event listeners after first interaction
+                document.removeEventListener('click', unmuteAudio);
+                document.removeEventListener('keydown', unmuteAudio);
+                document.removeEventListener('touchstart', unmuteAudio);
+            }
+            
+            // Add event listeners for user interaction
+            document.addEventListener('click', unmuteAudio);
+            document.addEventListener('keydown', unmuteAudio);
+            document.addEventListener('touchstart', unmuteAudio);
+        </script>
     </body>
 </html>
