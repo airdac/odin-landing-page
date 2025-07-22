@@ -92,57 +92,39 @@
         <script>
             // Get the audio element
             const audio = document.querySelector('audio');
-            let audioStarted = false;
+            let hasPlayed = false;
             
-            // Function to unmute and play audio
-            function unmuteAudio(e) {
-                if (!audioStarted) {
-                    audio.muted = false;
-                    audio.play().catch(e => {
-                        console.log('Audio play failed:', e);
-                    });
-                    audioStarted = true;
-                    
-                    // Remove event listeners after first interaction
-                    document.removeEventListener('click', unmuteAudio, true);
-                    document.removeEventListener('keydown', unmuteAudio, true);
-                    document.removeEventListener('touchstart', unmuteAudio, true);
-                    document.removeEventListener('touchend', unmuteAudio, true);
-                }
-            }
-            
-            // Function to start audio on mobile
+            // Function to start audio
             function startAudio() {
-                if (!audioStarted) {
-                    // Try to load and play the audio
-                    audio.load();
+                if (!hasPlayed) {
+                    console.log('Attempting to start audio...');
+                    audio.muted = false;
+                    audio.currentTime = 0;
                     audio.play().then(() => {
-                        // If successful, mute it initially
-                        audio.muted = true;
-                    }).catch(e => {
-                        console.log('Initial audio load failed:', e);
+                        console.log('Audio started successfully');
+                        hasPlayed = true;
+                    }).catch(error => {
+                        console.log('Audio play failed:', error);
                     });
                 }
             }
             
-            // For mobile browsers, we need to initialize audio on first touch
-            document.addEventListener('touchstart', startAudio, { once: true });
+            // Add event listeners to the entire document
+            function addListeners() {
+                document.addEventListener('click', startAudio, { once: true });
+                document.addEventListener('touchstart', startAudio, { once: true });
+                document.addEventListener('keydown', startAudio, { once: true });
+            }
             
-            // Add event listeners for user interaction to unmute (using capture phase)
-            document.addEventListener('click', unmuteAudio, true);
-            document.addEventListener('keydown', unmuteAudio, true);
-            document.addEventListener('touchstart', unmuteAudio, true);
-            document.addEventListener('touchend', unmuteAudio, true);
+            // Wait for page to load
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', addListeners);
+            } else {
+                addListeners();
+            }
             
-            // Also add specific listeners for buttons and links
-            document.addEventListener('DOMContentLoaded', () => {
-                const buttons = document.querySelectorAll('button');
-                const links = document.querySelectorAll('a');
-                
-                [...buttons, ...links].forEach(element => {
-                    element.addEventListener('click', unmuteAudio);
-                });
-            });
+            // Also try to load audio immediately
+            audio.load();
         </script>
     </body>
 </html>
