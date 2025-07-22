@@ -104,12 +104,32 @@
                 document.removeEventListener('click', unmuteAudio);
                 document.removeEventListener('keydown', unmuteAudio);
                 document.removeEventListener('touchstart', unmuteAudio);
+                document.removeEventListener('touchend', unmuteAudio);
             }
             
-            // Add event listeners for user interaction
+            // Function to start audio on mobile
+            function startAudio() {
+                // Try to load and play the audio
+                audio.load();
+                audio.play().then(() => {
+                    // If successful, mute it initially
+                    audio.muted = true;
+                }).catch(e => {
+                    console.log('Initial audio load failed:', e);
+                });
+                
+                // Remove the load event listener
+                document.removeEventListener('touchstart', startAudio, { once: true });
+            }
+            
+            // For mobile browsers, we need to initialize audio on first touch
+            document.addEventListener('touchstart', startAudio, { once: true });
+            
+            // Add event listeners for user interaction to unmute
             document.addEventListener('click', unmuteAudio);
             document.addEventListener('keydown', unmuteAudio);
             document.addEventListener('touchstart', unmuteAudio);
+            document.addEventListener('touchend', unmuteAudio);
         </script>
     </body>
 </html>
